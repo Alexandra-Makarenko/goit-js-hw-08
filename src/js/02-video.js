@@ -17,19 +17,8 @@ player.on('timeupdate', throttle(function (time) {
     localStorage.setItem("videoplayer-current-time", JSON.stringify(time.seconds));
     console.log(time);
 }
-, 1000));
+    , 1000));
 
-player.setCurrentTime(localStorage.getItem("videoplayer-current-time")).then(function (seconds) {
-    console.log(seconds)
-    // seconds = the actual time that the player seeked to
-}).catch(function(error) {
-    switch (error.name) {
-        case 'RangeError':
-            // the time was less than 0 or greater than the video’s duration
-            break;
+const currentTime = localStorage.getItem("videoplayer-current-time");
 
-        default:
-            // some other error occurred
-            break;
-    }
-});
+if (currentTime) player.setCurrentTime(currentTime);
